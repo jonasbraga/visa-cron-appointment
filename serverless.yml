@@ -1,0 +1,22 @@
+service: visa-cron-appointment
+
+frameworkVersion: '2'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: sa-east-1	# São Paulo | Brazil
+  timeout: 10 # Maximum 30s 
+
+  lambdaHashingVersion: 20201221
+
+functions:
+  visaScheduleChecker:
+    handler: handler.run
+    name: ${sls:stage}-visaScheduleChecker
+    description: CRON job that check for the most recent visa appointment available and notify users
+    timeout: 30
+    events:
+      - schedule: rate(1 minutes)
