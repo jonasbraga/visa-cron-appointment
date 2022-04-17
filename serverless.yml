@@ -17,6 +17,14 @@ functions:
     handler: handler.run
     name: ${sls:stage}-visaScheduleChecker
     description: CRON job that check for the most recent visa appointment available and notify users
-    timeout: 30
+    timeout: 60
+    environment:
+      EMAIL: jonasbraga2001@gmail.com
+      PASSWORD: 8683@ViSa
     events:
-      - schedule: rate(1 minutes)
+      - schedule: rate(1 minute)
+          
+
+
+plugins:
+  - serverless-offline-schedule
